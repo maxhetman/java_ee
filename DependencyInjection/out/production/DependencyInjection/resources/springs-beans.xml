@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="eckel" class="Programmer">
+        <constructor-arg ref="javaLang"/>
+        <property name="companyName" value="Microsoft"/>
+        <property name="usedLanguages">
+            <list>
+                <ref bean="csharpLang"/>
+                <ref bean="kotlinLang"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="javaLang" class="Java"/>
+    <bean id="csharpLang" class="CSharp"/>
+    <bean id="kotlinLang" class="Kotlin"/>
+</beans>
