@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="elon" class="com.hetman.Speaker">
+        <constructor-arg name="favouriteTopic" value="SpaceX" />
+    </bean>
+    <bean id="steve" class="com.hetman.Listener"/>
+
+    <aop:config>
+        <aop:aspect ref="steve">
+            <aop:pointcut
+                    expression="execution(* com.hetman.Speaker.speakAbout(String))
+                    and args(topic)"
+                    id="speech"/>
+
+            <aop:after method="endListenFine"
+                        pointcut-ref="speech"
+                        arg-names="topic"/>
+        </aop:aspect>
+
+        <aop:aspect ref="steve">
+            <aop:before
+                    pointcut="execution(* com.hetman.Speaker.speakAbout(String))"
+                    method="startListen"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
